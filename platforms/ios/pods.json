@@ -1,0 +1,12 @@
+{
+    "declarations": {},
+    "sources": {},
+    "libraries": {
+        "GoogleMobileVision/TextDetector": {
+            "name": "GoogleMobileVision/TextDetector",
+            "type": "podspec",
+            "spec": "~> 1.3.2",
+            "count": 1
+        }
+    }
+}
