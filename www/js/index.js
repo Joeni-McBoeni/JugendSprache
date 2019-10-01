@@ -25,13 +25,38 @@ document.addEventListener('init', function(event) {
     page.querySelector('#push-button-translator').onclick = function() {
       document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
     };
-  } else if (page.id === 'page2') {
+    page.querySelector('#push-button-game').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
+    };
+  }
+  else if (page.id === 'page2') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('#push-button-confirm').onclick = function() {
       document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat'}});
-    }
-  } else if (page.id === 'page3') {
+    };
+  }
+  else if (page.id === 'page3') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+  }
+  else if (page.id === 'page4') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    page.querySelector('#push-button-confirm').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+    };
+  }
+  else if (page.id === 'page5') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    page.querySelector('#push-button-confirm').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!'}});
+    };
+  }
+  else if (page.id === 'page6') {
+    page.querySelector('#push-button-again').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+    };
+    page.querySelector('#push-button-home').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page1.html');
+    };
   };
 });
 

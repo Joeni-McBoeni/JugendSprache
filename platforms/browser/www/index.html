@@ -50,8 +50,8 @@ under the License.
 
         <div id='pageContent'>
           <h1>Jugendsprachen übersetzen & erraten</h1>
-          <p>This is the first page.</p>
-          <ons-button id="push-button-translator">Texte zu Jugendsprache</ons-button>
+          <p><ons-button id="push-button-translator">Texte zu Jugendsprache</ons-button></p>
+          <p><ons-button id="push-button-game">Jugendsprache Ratespiel</ons-button></p>
         </div>
 
       </ons-page>
@@ -64,6 +64,7 @@ under the License.
           <div class="center"></div>
         </ons-toolbar>
         <div id='pageContent'>
+          <p>Eigenen Text eingeben</p>
           <ons-button id="push-button-confirm">Text bestätigen</ons-button>
         </div>
       </ons-page>
@@ -79,7 +80,43 @@ under the License.
         </div>
       </ons-page>
     </template>
-    
+
+    <template id="page4.html">
+      <ons-page id="page4">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <ons-button id="push-button-confirm">Spiel starten</ons-button>
+        </div>
+      </ons-page>
+    </template>
+
+    <template id="page5.html">
+      <ons-page id="page5">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <ons-button id="push-button-confirm">Bestätigen</ons-button>
+        </div>
+      </ons-page>
+    </template>
+
+    <template id="page6.html">
+      <ons-page id="page6">
+        <ons-toolbar>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <p><ons-button id="push-button-again">Nochmal spielen</ons-button></p>
+          <p><ons-button id="push-button-home">Zum Startbildschirm</ons-button></p>
+        </div>
+      </ons-page>
+    </template>
+
   </div>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
