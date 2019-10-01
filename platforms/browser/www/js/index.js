@@ -22,11 +22,14 @@
    var page = event.target;
 
    if (page.id === 'page1') {
-     page.querySelector('#push-button').onclick = function() {
-       document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+     page.querySelector('#push-button-translator').onclick = function() {
+       document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
      };
    } else if (page.id === 'page2') {
      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+     page.querySelector('#push-button-confirm').onclick = function() {
+       document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Page 3'}});
+     };
    }
  });
 
