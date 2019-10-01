@@ -47,10 +47,13 @@ document.addEventListener('init', function(event) {
   else if (page.id === 'page5') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('#push-button-confirm').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!'}});
+      if(true){ // add functionality of game later
+        document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!'}});
+      };
     };
   }
   else if (page.id === 'page6') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('#push-button-again').onclick = function() {
       document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
     };
