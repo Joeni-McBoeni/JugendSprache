@@ -1,7 +1,12 @@
 body {
-  background-color: light-blue;
+  text-align: center;
+  background-color: #cde7f0;
 }
 
+ons-button {
+  background-color: lime;
+  display: inline-block;
+}
 
 #pageContent {
   padding: 10px;

@@ -32,9 +32,9 @@ under the License.
 <meta name="format-detection" content="telephone=no">
 <meta name="msapplication-tap-highlight" content="no">
 <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-<link rel="stylesheet" type="text/css" href="css/index.css">
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
 <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 <title>Verjugendlichung</title>
 </head>
@@ -60,7 +60,7 @@ under the License.
     <template id="page2.html">
       <ons-page id="page2">
         <ons-toolbar>
-          <div class="left"><ons-back-button>Zurück zu Home</ons-back-button></div>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
           <div class="center"></div>
         </ons-toolbar>
         <div id='pageContent'>
@@ -69,10 +69,17 @@ under the License.
       </ons-page>
     </template>
 
-    <div id="deviceready" class="blink">
-      <p class="event listening">Connecting to Device</p>
-      <p class="event received">Device is Ready</p>
-    </div>
+    <template id="page3.html">
+      <ons-page id="page3">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+        </div>
+      </ons-page>
+    </template>
+    
   </div>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
