@@ -39,6 +39,7 @@ function onFail(message) {
 // Begriffe
 var begriffe = [
   ["Bruder", "Bro"],
+  ["Brüder", "Bros"],
   ["toll", "fresh"],
   ["Hallo", "Yo"],
   ["nett", "nice"],
@@ -47,7 +48,12 @@ var begriffe = [
   ["Trottel", "Lauch"],
   ["ausgezeichnet", "lit"],
   ["edel", "dufte"],
-  ["Freund", "Homie"]
+  ["Freunde", "Homies"],
+  ["Freund", "Homie"],
+  ["betrunken", "dicht"],
+  ["Menschen", "Dudes"],
+  ["Mensch", "Dude"],
+  [""]
 ];
 var globalWert = 0;
 

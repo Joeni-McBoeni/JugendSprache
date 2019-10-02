@@ -26,8 +26,7 @@ function onSuccess(imageData) {
             //var element = document.getElementById('pp');
             //element.innerHTML=recognizedText;
             //Use above two lines to show recognizedText in html
-            console.log(recognizedText);
-            alert(recognizedText);
+            document.getElementById('originalText').value = (recognizedText);
       }
       function onFail(message) {
             alert('Failed because: ' + message);
@@ -40,6 +39,7 @@ function onFail(message) {
 // Begriffe
 var begriffe = [
   ["Bruder", "Bro"],
+  ["Brüder", "Bros"],
   ["toll", "fresh"],
   ["Hallo", "Yo"],
   ["nett", "nice"],
@@ -48,7 +48,11 @@ var begriffe = [
   ["Trottel", "Lauch"],
   ["ausgezeichnet", "lit"],
   ["edel", "dufte"],
-  ["Freund", "Homie"]
+  ["Freunde", "Homies"],
+  ["Freund", "Homie"],
+  ["betrunken", "dicht"],
+  ["Menschen", "Dudes"],
+  ["Mensch", "Dude"]
 ];
 var globalWert = 0;
 
@@ -90,7 +94,7 @@ document.addEventListener('init', function(event) {
           // put globalWert * 10 on db
         }
         document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText}});
-        page.querySelector('#push-button-confirm').onclick = function() {
+        page.querySelector('#push-button-pictureToText').onclick = function() {
           navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true });
         }
       };
