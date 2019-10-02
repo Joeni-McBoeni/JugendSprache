@@ -17,6 +17,28 @@
 * under the License.
 */
 
+//Begriffe (put in different js later)
+var begriffe = [
+  ["Bruder", "Bro"],
+  ["toll", "fresh"],
+  ["Hallo", "Yo"]
+];
+
+// Funktion, um Texte zu verjugendlichen
+function verjugendlichen(originalText){
+  for(i = 0; i < begriffe.length; i++){
+    var pos = originalText.search(new RegExp(begriffe[i][0], "i"));
+    while(pos != -1){
+      var firstPart = originalText.slice(0, pos);
+      var lastPart = originalText.slice(pos + begriffe[i][0].length, originalText.length);
+      originalText = firstPart + begriffe[i][1] + lastPart;
+      pos = originalText.search(begriffe[i][0]);
+    }
+  }
+  ons.notification.alert(originalText);
+  return originalText;
+}
+
 // OnsenUI Page listener
 document.addEventListener('init', function(event) {
   var page = event.target;
@@ -32,6 +54,7 @@ document.addEventListener('init', function(event) {
   else if (page.id === 'page2') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('#push-button-confirm').onclick = function() {
+      var übersetzterText = verjugendlichen(document.getElementById('originalText').value);
       document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat'}});
     };
   }
