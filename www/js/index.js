@@ -21,7 +21,14 @@
 var begriffe = [
   ["Bruder", "Bro"],
   ["toll", "fresh"],
-  ["Hallo", "Yo"]
+  ["Hallo", "Yo"],
+  ["nett", "nice"],
+  ["Freund", "Alter"],
+  ["sehr", "voll"],
+  ["Trottel", "Lauch"],
+  ["ausgezeichnet", "lit"],
+  ["edel", "dufte"],
+  ["Gruppe", "Squad"]
 ];
 
 // Funktion, um Texte zu verjugendlichen
@@ -71,48 +78,76 @@ document.addEventListener('init', function(event) {
   }
   else if (page.id === 'page5') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    page.querySelector('ons-back-button').onClick = function(event) {
+      document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
+    };
     page.querySelector('#push-button-confirm').onclick = function() {
-      if(true){ // add functionality of game later
-        document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!'}});
+      var prompt = "Bruder, mein Freund ist sehr toll und nett."; // get from db
+      if(document.getElementById('translatedText').value.trim() == prompt){ // add db later
+        var punkteString = document.getElementById('punkte').innerHTML;
+        var punkte = parseInt(punkteString.slice(8, punkteString.length));
+        punkte += 10;
+        document.getElementById('punkte').innerHTML = "Punkte: " + punkte.toString();
+        // get new prompt from db
+      } else {
+        var lebenString = document.getElementById('leben').innerHTML;
+        var leben = parseInt(lebenString.slice(10, 11));
+        leben--;
+        if(leben == 0){
+          var punkteString = document.getElementById('punkte').innerHTML;
+          var punkte = parseInt(punkteString.slice(8, punkteString.length));
+          document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!', points: punkte}});
+        } else {
+          document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
+        }
       };
     };
   }
   else if (page.id === 'page6') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
+    var highscore = 0; // get highscore l8er
+    if(page.data.points > highscore){
+      highscore = page.data.points;
+      // set new highscore in local storage
+    }
+    page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
     page.querySelector('#push-button-again').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+      document.querySelector('ons-navigator').resetToPage('page5.html', {pop: true, data: {title: 'Spiel'}});
     };
     page.querySelector('#push-button-home').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page1.html');
+      document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
     };
   };
 });
 
+/*
 var app = {
-  // Application Constructor
-  initialize: function() {
-    document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-  },
+// Application Constructor
+initialize: function() {
+document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+},
 
-  // deviceready Event Handler
-  //
-  // Bind any cordova events here. Common events are:
-  // 'pause', 'resume', etc.
-  onDeviceReady: function() {
-    this.receivedEvent('deviceready');
-  },
+// deviceready Event Handler
+//
+// Bind any cordova events here. Common events are:
+// 'pause', 'resume', etc.
+onDeviceReady: function() {
+this.receivedEvent('deviceready');
+},
 
-  // Update DOM on a Received Event
-  receivedEvent: function(id) {
-    var parentElement = document.getElementById(id);
-    var listeningElement = parentElement.querySelector('.listening');
-    var receivedElement = parentElement.querySelector('.received');
+// Update DOM on a Received Event
+receivedEvent: function(id) {
+var parentElement = document.getElementById(id);
+var listeningElement = parentElement.querySelector('.listening');
+var receivedElement = parentElement.querySelector('.received');
 
-    listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');
+listeningElement.setAttribute('style', 'display:none;');
+receivedElement.setAttribute('style', 'display:block;');
 
-    console.log('Received Event: ' + id);
-  }
+console.log('Received Event: ' + id);
+}
 };
 
 app.initialize();
+*/
