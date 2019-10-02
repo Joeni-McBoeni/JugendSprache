@@ -32,10 +32,9 @@ function verjugendlichen(originalText){
       var firstPart = originalText.slice(0, pos);
       var lastPart = originalText.slice(pos + begriffe[i][0].length, originalText.length);
       originalText = firstPart + begriffe[i][1] + lastPart;
-      pos = originalText.search(begriffe[i][0]);
+      pos = originalText.search(new RegExp(begriffe[i][0], "i"));
     }
   }
-  ons.notification.alert(originalText);
   return originalText;
 }
 
@@ -54,12 +53,15 @@ document.addEventListener('init', function(event) {
   else if (page.id === 'page2') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('#push-button-confirm').onclick = function() {
-      var übersetzterText = verjugendlichen(document.getElementById('originalText').value);
-      document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat'}});
+      var originalText = document.getElementById('originalText').value;
+      var übersetzterText = verjugendlichen(originalText);
+      document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText}});
     };
   }
   else if (page.id === 'page3') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    page.querySelector('.resultOutput').innerHTML = page.data.übersetzterText;
+    page.querySelector('.resultInput').innerHTML = page.data.originalText;
   }
   else if (page.id === 'page4') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
