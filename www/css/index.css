@@ -10,3 +10,11 @@ body {
 #pageContent {
   padding: 10px;
 }
+
+#punkte {
+  float: left;
+}
+
+#leben {
+  float: right;
+}
