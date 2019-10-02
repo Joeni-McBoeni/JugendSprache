@@ -20,6 +20,10 @@
 		45F68A84028C4E6687C47693 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C497F69BAB0A421F999C67C1 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3F40054201634218BE33CB16 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 741ECD61FEB6462885B0DEC4 /* CoreLocation.framework */; };
 		426625A56E854F08A93A3813 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEC094BB9C40539BC641F6 /* AVFoundation.framework */; };
+		13C6E28B6EEC40B79A3C209B /* libfreetds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 111262E35C524AD18480B167 /* libfreetds.a */; };
+		80AE6D36BBE14D44926BDE66 /* SQLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC09C3C09ED4B4DBB65220B /* SQLClient.m */; };
+		D79F558FBCC940C394C06B66 /* SqlServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC31FE979E7481FB5ACC8CC /* SqlServer.m */; };
+		B03236A9313F4AED84ABFEC2 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF016DA37E34F06B38C4A10 /* libiconv.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +83,23 @@
 		C497F69BAB0A421F999C67C1 /* ImageIO.framework */ = {isa = PBXFileReference; name = "ImageIO.framework"; path = "System/Library/Frameworks/ImageIO.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		741ECD61FEB6462885B0DEC4 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		8AEEC094BB9C40539BC641F6 /* AVFoundation.framework */ = {isa = PBXFileReference; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		111262E35C524AD18480B167 /* libfreetds.a */ = {isa = PBXFileReference; name = "libfreetds.a"; path = "HelloCordova/Plugins/cordova-plugin-sqlserver/libfreetds.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		9CC09C3C09ED4B4DBB65220B /* SQLClient.m */ = {isa = PBXFileReference; name = "SQLClient.m"; path = "cordova-plugin-sqlserver/SQLClient.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		DDC31FE979E7481FB5ACC8CC /* SqlServer.m */ = {isa = PBXFileReference; name = "SqlServer.m"; path = "cordova-plugin-sqlserver/SqlServer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		4950B5CADD0A49319870610A /* bkpublic.h */ = {isa = PBXFileReference; name = "bkpublic.h"; path = "cordova-plugin-sqlserver/bkpublic.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		A02104201A3F41CC9775B545 /* cspublic.h */ = {isa = PBXFileReference; name = "cspublic.h"; path = "cordova-plugin-sqlserver/cspublic.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		AC3314CB5E194DF1ACEA3319 /* cstypes.h */ = {isa = PBXFileReference; name = "cstypes.h"; path = "cordova-plugin-sqlserver/cstypes.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CC19ADB47D4444A9ACB8FC53 /* ctpublic.h */ = {isa = PBXFileReference; name = "ctpublic.h"; path = "cordova-plugin-sqlserver/ctpublic.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		891BBE05A8E74A3A84E8C305 /* odbcss.h */ = {isa = PBXFileReference; name = "odbcss.h"; path = "cordova-plugin-sqlserver/odbcss.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		B0E13757F6924E3A9624FA5E /* sqldb.h */ = {isa = PBXFileReference; name = "sqldb.h"; path = "cordova-plugin-sqlserver/sqldb.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		DF040B1A62B54AD9A5EB411A /* sqlfront.h */ = {isa = PBXFileReference; name = "sqlfront.h"; path = "cordova-plugin-sqlserver/sqlfront.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		A219FD534D834520B3A0BEB1 /* sybdb.h */ = {isa = PBXFileReference; name = "sybdb.h"; path = "cordova-plugin-sqlserver/sybdb.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D7D84956A2614375B822594E /* syberror.h */ = {isa = PBXFileReference; name = "syberror.h"; path = "cordova-plugin-sqlserver/syberror.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		18D44B592509429296CF8BD7 /* sybfront.h */ = {isa = PBXFileReference; name = "sybfront.h"; path = "cordova-plugin-sqlserver/sybfront.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		9436AC3396F54F9E92EF9F83 /* tds_sysdep_public.h */ = {isa = PBXFileReference; name = "tds_sysdep_public.h"; path = "cordova-plugin-sqlserver/tds_sysdep_public.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		E74CBE07F8DF40FE828FED36 /* SQLClient.h */ = {isa = PBXFileReference; name = "SQLClient.h"; path = "cordova-plugin-sqlserver/SQLClient.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		2EDE930AA03040A9836FD3CF /* SqlServer.h */ = {isa = PBXFileReference; name = "SqlServer.h"; path = "cordova-plugin-sqlserver/SqlServer.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		5AF016DA37E34F06B38C4A10 /* libiconv.tbd */ = {isa = PBXFileReference; name = "libiconv.tbd"; path = "usr/lib/libiconv.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +111,8 @@
 				45F68A84028C4E6687C47693 /* ImageIO.framework in Frameworks */,
 				3F40054201634218BE33CB16 /* CoreLocation.framework in Frameworks */,
 				426625A56E854F08A93A3813 /* AVFoundation.framework in Frameworks */,
+				13C6E28B6EEC40B79A3C209B /* libfreetds.a in Frameworks */,
+				B03236A9313F4AED84ABFEC2 /* libiconv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +186,8 @@
 				C497F69BAB0A421F999C67C1 /* ImageIO.framework */,
 				741ECD61FEB6462885B0DEC4 /* CoreLocation.framework */,
 				8AEEC094BB9C40539BC641F6 /* AVFoundation.framework */,
+				111262E35C524AD18480B167 /* libfreetds.a */,
+				5AF016DA37E34F06B38C4A10 /* libiconv.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,6 +223,21 @@
 				27468C85C252436189253210 /* CDVCamera.h */,
 				5866AF2F57434E7E97267872 /* CDVJpegHeaderWriter.h */,
 				376B0549EA5E474BA59FF9E0 /* CDVExif.h */,
+				9CC09C3C09ED4B4DBB65220B /* SQLClient.m */,
+				DDC31FE979E7481FB5ACC8CC /* SqlServer.m */,
+				4950B5CADD0A49319870610A /* bkpublic.h */,
+				A02104201A3F41CC9775B545 /* cspublic.h */,
+				AC3314CB5E194DF1ACEA3319 /* cstypes.h */,
+				CC19ADB47D4444A9ACB8FC53 /* ctpublic.h */,
+				891BBE05A8E74A3A84E8C305 /* odbcss.h */,
+				B0E13757F6924E3A9624FA5E /* sqldb.h */,
+				DF040B1A62B54AD9A5EB411A /* sqlfront.h */,
+				A219FD534D834520B3A0BEB1 /* sybdb.h */,
+				D7D84956A2614375B822594E /* syberror.h */,
+				18D44B592509429296CF8BD7 /* sybfront.h */,
+				9436AC3396F54F9E92EF9F83 /* tds_sysdep_public.h */,
+				E74CBE07F8DF40FE828FED36 /* SQLClient.h */,
+				2EDE930AA03040A9836FD3CF /* SqlServer.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -326,6 +366,8 @@
 				D802554D3A634C4C96E824C7 /* UIImage+CropScaleOrientation.m in Sources */,
 				16C0653266024D72AD8E214D /* CDVCamera.m in Sources */,
 				E44A73BE89154D20A839AC1A /* CDVJpegHeaderWriter.m in Sources */,
+				80AE6D36BBE14D44926BDE66 /* SQLClient.m in Sources */,
+				D79F558FBCC940C394C06B66 /* SqlServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +404,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordova.hellocordova;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)/Plugins/cordova-plugin-sqlserver\"",
+				);
 			};
 			name = Debug;
 		};
@@ -385,6 +431,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordova.hellocordova;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)/Plugins/cordova-plugin-sqlserver\"",
+				);
 			};
 			name = Release;
 		};

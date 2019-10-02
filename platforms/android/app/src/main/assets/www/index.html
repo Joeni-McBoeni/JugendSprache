@@ -28,7 +28,14 @@ under the License.
   * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
   * Enable inline JS: add 'unsafe-inline' to default-src
 -->
-<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';
+ style-src * 'unsafe-inline';
+ script-src * 'unsafe-inline';
+ font-src * 'unsafe-inline';
+ media-src * blob:;
+ img-src * data:;
+ frame-src *;
+ connect-src * ;">
 <meta name="format-detection" content="telephone=no">
 <meta name="msapplication-tap-highlight" content="no">
 <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -50,7 +57,8 @@ under the License.
 
         <div id='pageContent'>
           <h1>Jugendsprachen übersetzen & erraten</h1>
-          <ons-button id="push-button-translator">Texte zu Jugendsprache</ons-button>
+          <p><ons-button id="push-button-translator">Texte zu Jugendsprache</ons-button></p>
+          <p><ons-button id="push-button-game">Jugendsprache Ratespiel</ons-button></p>
         </div>
 
       </ons-page>
@@ -63,7 +71,8 @@ under the License.
           <div class="center"></div>
         </ons-toolbar>
         <div id='pageContent'>
-          <p>Eigenen Text eingeben</p>
+          <h3>Eigenen Text eingeben</h3>
+          <p><textarea class="textarea" id="originalText" rows="4" placeholder="Originaltext"></textarea></p>
           <ons-button id="push-button-confirm">Text bestätigen</ons-button>
         </div>
       </ons-page>
@@ -76,6 +85,57 @@ under the License.
           <div class="center"></div>
         </ons-toolbar>
         <div id='pageContent'>
+          <h3>Eingetippter Text: </h3>
+          <p class="resultInput"></p>
+          <br>
+          <h3>Übersetzter Text: </h3>
+          <p class="resultOutput"></p>
+        </div>
+      </ons-page>
+    </template>
+
+    <template id="page4.html">
+      <ons-page id="page4">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <h3>Ratespiel</h3>
+          <p>Bling bling ipsum dolor crunk amet, gangsta adipiscing fo. Nullizzle sapizzle velizzle, aliquet volutpizzle, brizzle quizzle, gravida vel, shit. Pellentesque eget tortizzle. Sizzle ghetto. Shit daahng dawg dolizzle dapibus turpis tempizzle tellivizzle. Maurizzle cool phat sizzle turpizzle. Check out this you son of a bizzle tortor. Pellentesque eleifend rhoncizzle nisi. In hac ghetto platea dictumst. Mofo dapibus. Cool tellus fo, pretizzle the bizzle, mattizzle ac, eleifend stuff, nunc. Things suscipit. Yo mamma semper velizzle sizzle gizzle.</p>
+          <ons-button id="push-button-confirm">Spiel starten</ons-button>
+        </div>
+      </ons-page>
+    </template>
+
+    <template id="page5.html">
+      <ons-page id="page5">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <p id="punkte">Punkte: 0</p>
+          <p id="leben">Versuche: 3</p>
+          <h3>Jugendtext</h3>
+          <p>Bro, mein Alter ist voll fresh und nice.</p>
+          <p><textarea class="textarea" id="translatedText" rows="4" placeholder="Übersetzung"></textarea></p>
+          <ons-button id="push-button-confirm">Bestätigen</ons-button>
+        </div>
+      </ons-page>
+    </template>
+
+    <template id="page6.html">
+      <ons-page id="page6">
+        <ons-toolbar>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <h3>Du hast verloren!</h3>
+          <p class='ownScore'>Erreichte Punkte: 0</p>
+          <p class='hiScore'>Highscore: 0</p>
+          <p><ons-button id="push-button-again">Nochmal spielen</ons-button></p>
+          <p><ons-button id="push-button-home">Zum Startbildschirm</ons-button></p>
         </div>
       </ons-page>
     </template>

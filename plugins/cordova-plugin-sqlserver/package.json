@@ -1,0 +1,39 @@
+{
+  "_from": "cordova-plugin-sqlserver",
+  "_id": "cordova-plugin-sqlserver@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-TbX3BT4WXrV0r9BuHsnhNY6Biy8=",
+  "_location": "/cordova-plugin-sqlserver",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-sqlserver",
+    "name": "cordova-plugin-sqlserver",
+    "escapedName": "cordova-plugin-sqlserver",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-sqlserver/-/cordova-plugin-sqlserver-1.0.0.tgz",
+  "_shasum": "4db5f7053e165eb574afd06e1ec9e1358e818b2f",
+  "_spec": "cordova-plugin-sqlserver",
+  "_where": "C:\\Users\\1041338\\github\\JugendSprache",
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-sqlserver"
+  },
+  "deprecated": false,
+  "description": "Access to SQL Server database directly without any service",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "name": "cordova-plugin-sqlserver",
+  "version": "1.0.0"
+}

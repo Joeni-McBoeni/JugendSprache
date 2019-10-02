@@ -83,9 +83,6 @@ document.addEventListener('init', function(event) {
     };
     page.querySelector('#push-button-confirm').onclick = function() {
       var prompt = "Bruder, mein Freund ist sehr toll und nett."; // get from db
-      console.log(document.getElementById('leben').innerHTML);
-      console.log(prompt);
-      console.log(document.getElementById('translatedText').value.trim());
       if(document.getElementById('translatedText').value.trim() == prompt){ // add db later
         var punkteString = document.getElementById('punkte').innerHTML;
         var punkte = parseInt(punkteString.slice(8, punkteString.length));
@@ -110,7 +107,7 @@ document.addEventListener('init', function(event) {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
     page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
     var highscore = 0; // get highscore l8er
-    if(page.data.points > 0){
+    if(page.data.points > highscore){
       highscore = page.data.points;
       // set new highscore in local storage
     }

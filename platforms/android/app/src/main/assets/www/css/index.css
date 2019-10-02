@@ -3,9 +3,8 @@ body {
   background-color: #cde7f0;
 }
 
-ons-button {
-  background-color: lime;
-  display: inline-block;
+#push-button-game {
+  background-color: #33cc33;
 }
 
 #pageContent {
