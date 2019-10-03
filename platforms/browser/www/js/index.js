@@ -17,25 +17,6 @@
 * under the License.
 */
 
-// ocr-plugin in combination with camera plugin
-function onSuccess(imageData) {
-      textocr.recText(0, /*3,*/ imageData, onSuccess, onFail); // removed returnType (here 3) from version 2.0.0
-      // for sourceType Use 0,1,2,3 or 4
-      // for returnType Use 0,1,2 or 3 // 3 returns duplicates[see table]
-      function onSuccess(recognizedText) {
-            //var element = document.getElementById('pp');
-            //element.innerHTML=recognizedText;
-            //Use above two lines to show recognizedText in html
-            document.getElementById('originalText').value = (recognizedText);
-      }
-      function onFail(message) {
-            alert('Failed because: ' + message);
-      }
-}
-function onFail(message) {
-      alert('Failed because: ' + message);
-}
-
 // Begriffe
 var begriffe = [
   ["Bruder", "Bro"],
@@ -46,6 +27,7 @@ var begriffe = [
   ["Vater", "Alter"],
   ["sehr", "voll"],
   ["Trottel", "Lauch"],
+  ["Idiot", "Horst"],
   ["ausgezeichnet", "lit"],
   ["edel", "dufte"],
   ["Freunde", "Homies"],
@@ -53,24 +35,62 @@ var begriffe = [
   ["betrunken", "dicht"],
   ["Menschen", "Dudes"],
   ["Mensch", "Dude"],
-  [""]
+  ["Streit", "Beef"],
+  ["stark", "krass"],
+  ["langweilig", "wack"],
+  ["funktionier", "funz"],
+  ["beleidigt", "gedisst"],
+  ["beleidig", "diss"],
+  ["Verräter", "Snitch"],
+  ["peinlich", "cringe"],
+  ["großartig", "tight"],
+  ["grossartig", "tight"],
+  ["nervig", "ätzend"],
+  ["nerv", "tilt"],
+  ["Honig", "Hummelkotze"],
+  ["super", "dope"],
+  ["eine Entschuldigung", "ein Sorry"],
+  ["die Entschuldigung", "das Sorry"],
+  ["Entschuldigung", "Sorry"],
+  ["sicher", "fix"],
+  ["Asozialer", "Asi"],
+  ["asozial", "asi"],
+  ["Polizisten", "Bullen"],
+  ["Polizist", "Cop"],
+  ["Kumpel", "Digi"],
+  ["verwirrt", "verpeilt"],
+  ["Gruppe", "Crew"],
+  ["Musik", "Mucke"],
+  ["Anfänger", "Noob"],
+  ["verstanden", "gepeilt"],
+  ["verstand", "peilte"],
+  ["versteh", "peil"],
+  ["schön", "geil"],
+  ["traurig", "depri"],
+  ["Jungen", "Boys"],
+  ["Junge", "Boy"],
+  ["Mann", "Junge"],
+  ["das Mädchen", "das Girl"],
+  ["ein Mädchen", "ein Girl"],
+  ["Mädchen", "Girls"],
+  ["wütend", "aggro"]
 ];
-var globalWert = 0;
 
 // Funktion, um Texte zu verjugendlichen
 function verjugendlichen(originalText){
-  globalWert = 0;
+  var wortWert = 0;
   for(i = 0; i < begriffe.length; i++){
     var pos = originalText.search(new RegExp(begriffe[i][0], "i"));
     while(pos != -1){
-      globalWert++;
+      wortWert++;
       var firstPart = originalText.slice(0, pos);
       var lastPart = originalText.slice(pos + begriffe[i][0].length, originalText.length);
       originalText = firstPart + begriffe[i][1] + lastPart;
       pos = originalText.search(new RegExp(begriffe[i][0], "i"));
     }
   }
-  return originalText;
+  console.log(wortWert * 10);
+  return [originalText, wortWert * 10];
 }
 
 // OnsenUI Page listener
@@ -91,10 +111,10 @@ document.addEventListener('init', function(event) {
         var originalText = document.getElementById('originalText').value;
         var übersetzterText = verjugendlichen(originalText);
         if(permissionCheckbox.checked == true){
-          // put übersetzterText on db
-          // put globalWert * 10 on db
+          // put übersetzterText[0] on db
+          // put übersetzterText[1] (wortWert * 10) on db
         }
-        document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText}});
+        document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
         page.querySelector('#push-button-pictureToText').onclick = function() {
           navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true });
         }
@@ -145,10 +165,14 @@ document.addEventListener('init', function(event) {
     case 'page6':
       page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
       page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
-      var highscore = 0; // get highscore l8er
+      hiScoreStorage = localStorage;
+      var highscore = hiScoreStorage.getItem('myHighScore');
+      if(highscore == null){
+        highscore = 0;
+      }
       if(page.data.points > highscore){
         highscore = page.data.points;
-        // set new highscore in local storage
+        hiScoreStorage.setItem('myHighScore', highscore);
       }
       page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
       page.querySelector('#push-button-again').onclick = function() {
@@ -162,34 +186,3 @@ document.addEventListener('init', function(event) {
       break;
   };
 });
-
-/*
-var app = {
-// Application Constructor
-initialize: function() {
-document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-},
-
-// deviceready Event Handler
-//
-// Bind any cordova events here. Common events are:
-// 'pause', 'resume', etc.
-onDeviceReady: function() {
-this.receivedEvent('deviceready');
-},
-
-// Update DOM on a Received Event
-receivedEvent: function(id) {
-var parentElement = document.getElementById(id);
-var listeningElement = parentElement.querySelector('.listening');
-var receivedElement = parentElement.querySelector('.received');
-
-listeningElement.setAttribute('style', 'display:none;');
-receivedElement.setAttribute('style', 'display:block;');
-
-console.log('Received Event: ' + id);
-}
-};
-
-app.initialize();
-*/
