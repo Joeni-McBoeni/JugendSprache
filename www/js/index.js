@@ -53,7 +53,9 @@ var begriffe = [
   ["betrunken", "dicht"],
   ["Menschen", "Dudes"],
   ["Mensch", "Dude"],
-  [""]
+  ["Streit", "Beef"],
+  ["stark", "krass"],
+  ["langweilig"], ["wack"]
 ];
 var globalWert = 0;
 
