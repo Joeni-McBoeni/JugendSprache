@@ -52,7 +52,8 @@ var begriffe = [
   ["Freund", "Homie"],
   ["betrunken", "dicht"],
   ["Menschen", "Dudes"],
-  ["Mensch", "Dude"]
+  ["Mensch", "Dude"],
+  [""]
 ];
 var globalWert = 0;
 
