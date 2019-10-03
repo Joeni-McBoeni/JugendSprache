@@ -17,137 +17,175 @@
 * under the License.
 */
 
-//Begriffe (put in different js later)
+// Begriffe
 var begriffe = [
   ["Bruder", "Bro"],
+  ["Brüder", "Bros"],
   ["toll", "fresh"],
   ["Hallo", "Yo"],
   ["nett", "nice"],
-  ["Freund", "Alter"],
+  ["Vater", "Alter"],
   ["sehr", "voll"],
   ["Trottel", "Lauch"],
+  ["Idiot", "Horst"],
   ["ausgezeichnet", "lit"],
   ["edel", "dufte"],
-  ["Gruppe", "Squad"]
+  ["Freunde", "Homies"],
+  ["Freund", "Homie"],
+  ["betrunken", "dicht"],
+  ["Menschen", "Dudes"],
+  ["Mensch", "Dude"],
+  ["Streit", "Beef"],
+  ["stark", "krass"],
+  ["langweilig", "wack"],
+  ["funktionier", "funz"],
+  ["beleidigt", "gedisst"],
+  ["beleidig", "diss"],
+  ["Verräter", "Snitch"],
+  ["peinlich", "cringe"],
+  ["großartig", "tight"],
+  ["grossartig", "tight"],
+  ["nervig", "ätzend"],
+  ["nerv", "tilt"],
+  ["Honig", "Hummelkotze"],
+  ["super", "dope"],
+  ["eine Entschuldigung", "ein Sorry"],
+  ["die Entschuldigung", "das Sorry"],
+  ["Entschuldigung", "Sorry"],
+  ["sicher", "fix"],
+  ["Asozialer", "Asi"],
+  ["asozial", "asi"],
+  ["Polizisten", "Bullen"],
+  ["Polizist", "Cop"],
+  ["Kumpel", "Digi"],
+  ["verwirrt", "verpeilt"],
+  ["Gruppe", "Crew"],
+  ["Musik", "Mucke"],
+  ["Anfänger", "Noob"],
+  ["verstanden", "gepeilt"],
+  ["verstand", "peilte"],
+  ["versteh", "peil"],
+  ["schön", "geil"],
+  ["traurig", "depri"],
+  ["Jungen", "Boys"],
+  ["Junge", "Boy"],
+  ["Mann", "Junge"],
+  ["das Mädchen", "das Girl"],
+  ["ein Mädchen", "ein Girl"],
+  ["Mädchen", "Girls"],
+  ["wütend", "aggro"],
+  ["bin", "bims"],
+  ["Gentleman", "Ehrenmann"],
+  ["Gentlewoman", "Ehrenfrau"]
 ];
 
 // Funktion, um Texte zu verjugendlichen
 function verjugendlichen(originalText){
+  var wortWert = 0;
   for(i = 0; i < begriffe.length; i++){
     var pos = originalText.search(new RegExp(begriffe[i][0], "i"));
     while(pos != -1){
+      wortWert++;
       var firstPart = originalText.slice(0, pos);
       var lastPart = originalText.slice(pos + begriffe[i][0].length, originalText.length);
       originalText = firstPart + begriffe[i][1] + lastPart;
       pos = originalText.search(new RegExp(begriffe[i][0], "i"));
     }
   }
-  return originalText;
+  console.log(wortWert * 10);
+  return [originalText, wortWert * 10];
 }
 
 // OnsenUI Page listener
 document.addEventListener('init', function(event) {
   var page = event.target;
-
-  if (page.id === 'page1') {
-    page.querySelector('#push-button-translator').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
-    };
-    page.querySelector('#push-button-game').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
-    };
-  }
-  else if (page.id === 'page2') {
-    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    page.querySelector('#push-button-confirm').onclick = function() {
-      var originalText = document.getElementById('originalText').value;
-      var übersetzterText = verjugendlichen(originalText);
-      document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText}});
-    };
-  }
-  else if (page.id === 'page3') {
-    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    page.querySelector('.resultOutput').innerHTML = page.data.übersetzterText;
-    page.querySelector('.resultInput').innerHTML = page.data.originalText;
-  }
-  else if (page.id === 'page4') {
-    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    page.querySelector('#push-button-confirm').onclick = function() {
-      document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
-    };
-  }
-  else if (page.id === 'page5') {
-    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    page.querySelector('ons-back-button').onClick = function(event) {
-      document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
-    };
-    page.querySelector('#push-button-confirm').onclick = function() {
-      var prompt = "Bruder, mein Freund ist sehr toll und nett."; // get from db
-      if(document.getElementById('translatedText').value.trim() == prompt){ // add db later
-        var punkteString = document.getElementById('punkte').innerHTML;
-        var punkte = parseInt(punkteString.slice(8, punkteString.length));
-        punkte += 10;
-        document.getElementById('punkte').innerHTML = "Punkte: " + punkte.toString();
-        // get new prompt from db
-      } else {
-        var lebenString = document.getElementById('leben').innerHTML;
-        var leben = parseInt(lebenString.slice(10, 11));
-        leben--;
-        if(leben == 0){
-          var punkteString = document.getElementById('punkte').innerHTML;
-          var punkte = parseInt(punkteString.slice(8, punkteString.length));
-          document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!', points: punkte}});
-        } else {
-          document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
+  switch(page.id){
+    case 'page1':
+      page.querySelector('#push-button-translator').onclick = function() {
+        document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
+      };
+      page.querySelector('#push-button-game').onclick = function() {
+        document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
+      };
+      break;
+    case 'page2':
+      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      page.querySelector('#push-button-confirm').onclick = function() {
+        var originalText = document.getElementById('originalText').value;
+        var übersetzterText = verjugendlichen(originalText);
+        if(permissionCheckbox.checked == true){
+          // put übersetzterText[0] on db
+          // put übersetzterText[1] (wortWert * 10) on db
+        }
+        document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
+        page.querySelector('#push-button-pictureToText').onclick = function() {
+          navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true });
         }
       };
-    };
-  }
-  else if (page.id === 'page6') {
-    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
-    var highscore = 0; // get highscore l8er
-    if(page.data.points > highscore){
-      highscore = page.data.points;
-      // set new highscore in local storage
-    }
-    page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
-    page.querySelector('#push-button-again').onclick = function() {
-      document.querySelector('ons-navigator').resetToPage('page5.html', {pop: true, data: {title: 'Spiel'}});
-    };
-    page.querySelector('#push-button-home').onclick = function() {
-      document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
-    };
+      break;
+    case 'page3':
+      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      page.querySelector('.resultOutput').innerHTML = page.data.übersetzterText;
+      page.querySelector('.resultInput').innerHTML = page.data.originalText;
+      break;
+    case 'page4':
+      if(page.data.title == 'Neues Spiel'){
+        document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+      }
+      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      page.querySelector('#push-button-confirm').onclick = function() {
+        document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+      };
+      break;
+    case 'page5':
+      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      page.querySelector('ons-back-button').onClick = function(event) {
+        document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
+      };
+      page.querySelector('#push-button-confirm').onclick = function() {
+        var prompt = "Bruder, unser Vater ist sehr toll und nett."; // get from db
+        var promptValue = 40; // get from db
+        if(document.getElementById('translatedText').value.trim() == prompt){ // add db later
+          var punkteString = document.getElementById('punkte').innerHTML;
+          var punkte = parseInt(punkteString.slice(8, punkteString.length));
+          punkte += promptValue;
+          document.getElementById('punkte').innerHTML = "Punkte: " + punkte.toString();
+          // get new prompt from db
+        } else {
+          var lebenString = document.getElementById('leben').innerHTML;
+          var leben = parseInt(lebenString.slice(10, 11));
+          leben--;
+          if(leben == 0){
+            var punkteString = document.getElementById('punkte').innerHTML;
+            var punkte = parseInt(punkteString.slice(8, punkteString.length));
+            document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!', points: punkte}});
+          } else {
+            document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
+          }
+        };
+      };
+      break;
+    case 'page6':
+      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
+      hiScoreStorage = localStorage;
+      var highscore = hiScoreStorage.getItem('myHighScore');
+      if(highscore == null){
+        highscore = 0;
+      }
+      if(page.data.points > highscore){
+        highscore = page.data.points;
+        hiScoreStorage.setItem('myHighScore', highscore);
+      }
+      page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
+      page.querySelector('#push-button-again').onclick = function() {
+        // Nicht page5, da dann der Back-Button fehlt, deshalb zuerst auf page4, welche dann automatisch weiterleitet
+        // popPage error ist beabsichtigt, weil so page4 nicht richtig lädt, d.h. es lädt direkt page5
+        document.querySelector('ons-navigator').resetToPage('page4.html', {pop: true, data: {title: 'Neues Spiel'}});
+      };
+      page.querySelector('#push-button-home').onclick = function() {
+        document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
+      };
+      break;
   };
 });
-
-/*
-var app = {
-// Application Constructor
-initialize: function() {
-document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-},
-
-// deviceready Event Handler
-//
-// Bind any cordova events here. Common events are:
-// 'pause', 'resume', etc.
-onDeviceReady: function() {
-this.receivedEvent('deviceready');
-},
-
-// Update DOM on a Received Event
-receivedEvent: function(id) {
-var parentElement = document.getElementById(id);
-var listeningElement = parentElement.querySelector('.listening');
-var receivedElement = parentElement.querySelector('.received');
-
-listeningElement.setAttribute('style', 'display:none;');
-receivedElement.setAttribute('style', 'display:block;');
-
-console.log('Received Event: ' + id);
-}
-};
-
-app.initialize();
-*/

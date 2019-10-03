@@ -22,13 +22,5 @@
     },
     "is_top_level": true,
     "variables": {}
-  },
-  "cordova-plugin-sqlserver": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-sqlserver"
-    },
-    "is_top_level": true,
-    "variables": {}
   }
 }

@@ -73,7 +73,10 @@ var begriffe = [
   ["das Mädchen", "das Girl"],
   ["ein Mädchen", "ein Girl"],
   ["Mädchen", "Girls"],
-  ["wütend", "aggro"]
+  ["wütend", "aggro"],
+  ["bin", "bims"],
+  ["Gentleman", "Ehrenmann"],
+  ["Gentlewoman", "Ehrenfrau"]
 ];
 
 // Funktion, um Texte zu verjugendlichen

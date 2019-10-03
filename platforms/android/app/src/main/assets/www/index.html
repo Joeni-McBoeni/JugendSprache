@@ -72,8 +72,10 @@ under the License.
         </ons-toolbar>
         <div id='pageContent'>
           <h3>Eigenen Text eingeben</h3>
+          <p><ons-button id="push-button-pictureToText">Bild in Text umwandeln</ons-button></p>
           <p><textarea class="textarea" id="originalText" rows="4" placeholder="Originaltext"></textarea></p>
-          <ons-button id="push-button-confirm">Text bestätigen</ons-button>
+          <p><ons-checkbox id="permissionCheckbox" checked></ons-checkbox> Ich akzeptiere, dass dieser Text für zukünftige Ratespiele in dieser App genutzt werden darf. </p>
+          <p><ons-button id="push-button-confirm">Text bestätigen</ons-button></p>
         </div>
       </ons-page>
     </template>
@@ -117,8 +119,9 @@ under the License.
         <div id='pageContent'>
           <p id="punkte">Punkte: 0</p>
           <p id="leben">Versuche: 3</p>
+          <br>
           <h3>Jugendtext</h3>
-          <p>Bro, mein Alter ist voll fresh und nice.</p>
+          <p>Bro, unser Alter ist voll fresh und nice.</p>
           <p><textarea class="textarea" id="translatedText" rows="4" placeholder="Übersetzung"></textarea></p>
           <ons-button id="push-button-confirm">Bestätigen</ons-button>
         </div>

@@ -1,6 +1,5 @@
 body {
   text-align: center;
-  background-color: #cde7f0;
 }
 
 #push-button-game {
@@ -9,4 +8,12 @@ body {
 
 #pageContent {
   padding: 10px;
+}
+
+#punkte {
+  float: left;
+}
+
+#leben {
+  float: right;
 }
