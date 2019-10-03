@@ -81,7 +81,12 @@ var app = {
       ["wütend", "aggro"],
       ["bin", "bims"],
       ["Gentleman", "Ehrenmann"],
-      ["Gentlewoman", "Ehrenfrau"]
+      ["Gentlewoman", "Ehrenfrau"],
+      ["die Probleme", "den Struggle"],
+      ["Probleme", "den Struggle"],
+      ["ein Problem", "einen Struggle"],
+      ["das Problem", "den Struggle"],
+      ["das Problem", "den Struggle"]
     ];
 
     // Funktion, um Texte zu verjugendlichen
@@ -125,23 +130,47 @@ var app = {
             document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
           }
           page.querySelector('#push-button-pictureToText').onclick = function() {
+            document.querySelector('#myNavigator').pushPage('page2_extra.html', {data: {title: 'Bild zu Text umwandeln'}});
+          }
+        break;
+        case 'page2_extra':
+          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+          page.querySelector('#useCamera').onclick = function() {
             navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true});
             function onSuccess(imageData) {
-              textocr.recText(0, /*3,*/ imageData, onSuccess, onFail); // removed returnType (here 3) from version 2.0.0
+              textocr.recText(0, imageData, onSuccess, onFail);
               function onSuccess(recognizedText) {
                 var originalText = "";
                 for (var i = 0; i < recognizedText.words.wordtext.length; i++){
                   originalText += recognizedText.words.wordtext[i] + " ";
                 }
-
                 document.getElementById('originalText').value = originalText;
               }
               function onFail(message) {
-                alert('Failed because: ' + message);
+                alert('Fehler: ' + message);
               }
             }
             function onFail(message) {
-              alert('Failed because: ' + message);
+              alert('Fehler: ' + message);
+            }
+          }
+          page.querySelector('#useGallery').onclick = function() {
+            navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true, sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM});
+            function onSuccess(imageData) {
+              textocr.recText(0, imageData, onSuccess, onFail);
+              function onSuccess(recognizedText) {
+                var originalText = "";
+                for (var i = 0; i < recognizedText.words.wordtext.length; i++){
+                  originalText += recognizedText.words.wordtext[i] + " ";
+                }
+                document.getElementById('originalText').value = originalText;
+              }
+              function onFail(message) {
+                alert('Fehler: ' + message);
+              }
+            }
+            function onFail(message) {
+              alert('Fehler: ' + message);
             }
           }
         break;
@@ -210,13 +239,55 @@ var app = {
           };
         break;
       };
+      var useCamera = function() {
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true});
+        function onSuccess(imageData) {
+          textocr.recText(0, imageData, onSuccess, onFail);
+          function onSuccess(recognizedText) {
+            var originalText = "";
+            for (var i = 0; i < recognizedText.words.wordtext.length; i++){
+              originalText += recognizedText.words.wordtext[i] + " ";
+            }
+            document.getElementById('originalText').value = originalText;
+          }
+          function onFail(message) {
+            alert('Fehler: ' + message);
+          }
+        }
+        function onFail(message) {
+          alert('Fehler: ' + message);
+        }
+      }
+      var useGallery = function() {
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true, sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM});
+        function onSuccess(imageData) {
+          textocr.recText(0, imageData, onSuccess, onFail);
+          function onSuccess(recognizedText) {
+            var originalText = "";
+            for (var i = 0; i < recognizedText.words.wordtext.length; i++){
+              originalText += recognizedText.words.wordtext[i] + " ";
+            }
+            document.getElementById('originalText').value = originalText;
+          }
+          function onFail(message) {
+            alert('Fehler: ' + message);
+          }
+        }
+        function onFail(message) {
+          alert('Fehler: ' + message);
+        }
+      }
+      var hideDialog = function(id) {
+        document.getElementById(id).hide();
+      }
     });
   },
 
+  // It's a feature, don't worry about it
   onDeviceReady: function() {
-    this.receivedEvent('deviceready');
-  },
-  receivedEvent: function(id) {
+//    this.receivedEvent('deviceready');
+//  },
+//  receivedEvent: function(id) {
   }
 }
 

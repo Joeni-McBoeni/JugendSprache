@@ -29,13 +29,13 @@ under the License.
   * Enable inline JS: add 'unsafe-inline' to default-src
 -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';
- style-src * 'unsafe-inline';
- script-src * 'unsafe-inline';
- font-src * 'unsafe-inline';
- media-src * blob:;
- img-src * data:;
- frame-src *;
- connect-src * ;">
+style-src * 'unsafe-inline';
+script-src * 'unsafe-inline';
+font-src * 'unsafe-inline';
+media-src * blob:;
+img-src * data:;
+frame-src *;
+connect-src * ;">
 <meta name="format-detection" content="telephone=no">
 <meta name="msapplication-tap-highlight" content="no">
 <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -80,6 +80,20 @@ under the License.
       </ons-page>
     </template>
 
+    <template id="page2_extra.html">
+      <ons-page id="page2_extra">
+        <ons-toolbar>
+          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+          <div class="center"></div>
+        </ons-toolbar>
+        <div id='pageContent'>
+          <h3>Woher willst du das Bild nehmen?</h3>
+          <p><ons-button id="useCamera">Neu aufnehmen</ons-button></p>
+          <p><ons-button id="useGallery">Galerie</ons-button></p>
+        </div>
+      </ons-page>
+    </template>
+
     <template id="page3.html">
       <ons-page id="page3">
         <ons-toolbar>
@@ -113,46 +127,47 @@ under the License.
             Du hast insgesamt 3 Fehlversuche.
             <br>
             Versuche, einen hohen Highscore aufzustellen, Bro!</p>
-          <ons-button id="push-button-confirm">Spiel starten</ons-button>
-        </div>
-      </ons-page>
-    </template>
+            <ons-button id="push-button-confirm">Spiel starten</ons-button>
+          </div>
+        </ons-page>
+      </template>
 
-    <template id="page5.html">
-      <ons-page id="page5">
-        <ons-toolbar>
-          <div class="left"><ons-back-button>Zurück</ons-back-button></div>
-          <div class="center"></div>
-        </ons-toolbar>
-        <div id='pageContent'>
-          <p id="punkte">Punkte: 0</p>
-          <p id="leben">Versuche: 3</p>
-          <br>
-          <h3>Jugendtext</h3>
-          <p>Bro, unser Alter ist voll fresh und nice.</p>
-          <p><textarea class="textarea" id="translatedText" rows="6" placeholder="Übersetzung"></textarea></p>
-          <ons-button id="push-button-confirm">Bestätigen</ons-button>
-        </div>
-      </ons-page>
-    </template>
+      <template id="page5.html">
+        <ons-page id="page5">
+          <ons-toolbar>
+            <div class="left"><ons-back-button>Zurück</ons-back-button></div>
+            <div class="center"></div>
+          </ons-toolbar>
+          <div id='pageContent'>
+            <p id="punkte">Punkte: 0</p>
+            <p id="leben">Versuche: 3</p>
+            <br>
+            <h3>Jugendtext</h3>
+            <p>Bro, unser Alter ist voll fresh und nice.</p>
+            <p><textarea class="textarea" id="translatedText" rows="6" placeholder="Übersetzung"></textarea></p>
+            <ons-button id="push-button-confirm">Bestätigen</ons-button>
+          </div>
+        </ons-page>
+      </template>
 
-    <template id="page6.html">
-      <ons-page id="page6">
-        <ons-toolbar>
-          <div class="center"></div>
-        </ons-toolbar>
-        <div id='pageContent'>
-          <h3>Du hast verloren!</h3>
-          <p class='ownScore'>Erreichte Punkte: 0</p>
-          <p class='hiScore'>Highscore: 0</p>
-          <p><ons-button id="push-button-again">Nochmal spielen</ons-button></p>
-          <p><ons-button id="push-button-home">Zum Startbildschirm</ons-button></p>
-        </div>
-      </ons-page>
-    </template>
+      <template id="page6.html">
+        <ons-page id="page6">
+          <ons-toolbar>
+            <div class="center"></div>
+          </ons-toolbar>
+          <div id='pageContent'>
+            <h3>Du hast verloren!</h3>
+            <p class='ownScore'>Erreichte Punkte: 0</p>
+            <p class='hiScore'>Highscore: 0</p>
+            <p><ons-button id="push-button-again">Nochmal spielen</ons-button></p>
+            <p><ons-button id="push-button-home">Zum Startbildschirm</ons-button></p>
+          </div>
+        </ons-page>
+      </template>
 
-  </div>
-  <script type="text/javascript" src="cordova.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
-</body>
-</html>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
+  </html>
