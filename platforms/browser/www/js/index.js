@@ -239,47 +239,6 @@ var app = {
           };
         break;
       };
-      var useCamera = function() {
-        navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true});
-        function onSuccess(imageData) {
-          textocr.recText(0, imageData, onSuccess, onFail);
-          function onSuccess(recognizedText) {
-            var originalText = "";
-            for (var i = 0; i < recognizedText.words.wordtext.length; i++){
-              originalText += recognizedText.words.wordtext[i] + " ";
-            }
-            document.getElementById('originalText').value = originalText;
-          }
-          function onFail(message) {
-            alert('Fehler: ' + message);
-          }
-        }
-        function onFail(message) {
-          alert('Fehler: ' + message);
-        }
-      }
-      var useGallery = function() {
-        navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true, sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM});
-        function onSuccess(imageData) {
-          textocr.recText(0, imageData, onSuccess, onFail);
-          function onSuccess(recognizedText) {
-            var originalText = "";
-            for (var i = 0; i < recognizedText.words.wordtext.length; i++){
-              originalText += recognizedText.words.wordtext[i] + " ";
-            }
-            document.getElementById('originalText').value = originalText;
-          }
-          function onFail(message) {
-            alert('Fehler: ' + message);
-          }
-        }
-        function onFail(message) {
-          alert('Fehler: ' + message);
-        }
-      }
-      var hideDialog = function(id) {
-        document.getElementById(id).hide();
-      }
     });
   },
 
