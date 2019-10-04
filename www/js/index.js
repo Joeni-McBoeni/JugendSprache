@@ -88,7 +88,6 @@ var app = {
       ["die Probleme", "den Struggle"],
       ["Probleme", "den Struggle"],
       ["ein Problem", "einen Struggle"],
-      ["das Problem", "den Struggle"],
       ["das Problem", "den Struggle"]
     ];
 
@@ -135,6 +134,7 @@ var app = {
                   document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
                 }
               };
+              document.getElementById('translatedText').value = "";
               GetRandomAussage(page);
             };
           }

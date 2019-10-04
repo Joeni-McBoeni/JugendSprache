@@ -2,39 +2,58 @@
 
 var firebaseStore = {
 
-    // Your web app's Firebase configuration
-    firebaseConfig: {
-      apiKey: "AIzaSyAN7KYUoLs8MNWeacthhM-7SdPBBmyxpiU",
-      authDomain: "test-uek.firebaseapp.com",
-      databaseURL: "https://test-uek.firebaseio.com",
-      projectId: "test-uek",
-      storageBucket: "",
-      messagingSenderId: "865737561532",
-      appId: "1:865737561532:web:f8888d3fb66e4bc39587b9",
-      measurementId: "G-YVKWSVL9DN"
-    },
+    database: null,
 
     initialize: function() {
       // Initialize Firebase
-      firebase.initializeApp(this.firebaseConfig);
-      firebase.analytics();
+      var firebaseConfig = {
+        apiKey: "AIzaSyAIYCExRRK_MTuo7ssPe8uT0G7rsZqCnIA",
+        authDomain: "verjugendlichung.firebaseapp.com",
+        databaseURL: "https://verjugendlichung.firebaseio.com",
+        projectId: "verjugendlichung",
+        storageBucket: "verjugendlichung.appspot.com",
+        messagingSenderId: "637789281729",
+        appId: "1:637789281729:web:92c234e38690444de76340",
+        measurementId: "G-EX2V9TCR9T"
+      };
+
+      var defaultProject = firebase.initializeApp(firebaseConfig);
+
+      console.log(defaultProject);
+
+      // firebase.analytics();
+
+      this.database = firebase.database();
     },
 
     addItem: function(store, data) {
       console.log("adding items: " + store + ", " + data);
 
-      var ref = firebase.database().ref(store + '/');
-      ref.push(data);
+      var ref = firebase.database().ref(store + '/' + data.id);
+      ref.set(data);
 
-      console.log("Item added to firebase: " + store + ", " + data);
+      console.log("Item added to firebase: " + store + "/" + data.id + ", " + data);
     },
 
-    getItems: function(store) {
+    getItems: function(store, myCallback) {
         console.log("returning items for: " + store);
 
+        var query = firebase.database().ref(store + "/").once("value", function (snapshot) {
+          console.log(snapshot);
+          var items = new Array();
 
-        console.log("Items returned: " + items)
-        return items;
+          snapshot.forEach(function (childSnapshot) {
+            var item = childSnapshot.val();
+            console.log(item);
+
+            items.push(item);
+          })
+
+          console.log("items returned: " + store + ", " + items);
+          myCallback(items);
+        }, function (error) {
+          console.log("Error retrieving data: " + error);
+        })
     },
 
     removeStore: function(store) {
