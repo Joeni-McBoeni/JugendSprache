@@ -203,7 +203,7 @@ var app = {
           var originalText = document.getElementById('originalText').value;
           var übersetzterText = verjugendlichen(originalText);
           // Wenn der User zustimmt, seine Daten zu teilen...
-          if(permissionCheckbox.checked == true){
+          if(permissionCheckbox.checked == true && übersetzterText[1] != 0){
             // ... werden die Texte (original & verjugendlicht) & ihr Wortwert auf die Datenbank geladen
             AddAussagetoDatabase(originalText,übersetzterText[0],übersetzterText[1]);
           }
