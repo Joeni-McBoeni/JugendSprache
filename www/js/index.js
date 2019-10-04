@@ -92,6 +92,68 @@ var app = {
       ["das Problem", "den Struggle"]
     ];
 
+    // Wird für zufäälige Generation & neue Einträge der Datenbank verwendet
+    var highestid = 1;
+
+    //Fügt eine neue Aussage zur Datenbank hinzu
+    function AddAussagetoDatabase(originalText,uebersetzerText,aussagWert){
+      var aussage = {
+        id: parseInt(highestid + 1),
+        originalText: originalText,
+        uebersetzerText: uebersetzerText,
+        aussagWert: aussagWert
+      };
+      firebaseStore.addItem("TAussagen", aussage);
+      highestid = GetNewId();
+    }
+
+    //Wählt eine zufällige Aussage aus der Datenbank aus und ändert die
+    //ensprechenden Elementen ab
+    function GetRandomAussage(page){
+      var randomId = Math.floor(Math.random() * highestid) + 1;
+      firebaseStore.getItems("TAussagen", function(items){
+        items.forEach(function(itm){
+          if (itm.id == randomId){
+            var randomAussage = [itm.originalText,itm.uebersetzerText,itm.aussagWert];
+            document.getElementById('jugendtext').innerHTML = randomAussage[1];
+            page.querySelector('#push-button-confirm').onclick = function() {
+              if(document.getElementById('translatedText').value.trim() == randomAussage[0].trim()){
+                var punkteString = document.getElementById('punkte').innerHTML;
+                var punkte = parseInt(punkteString.slice(8, punkteString.length));
+                punkte += parseInt(randomAussage[2]);
+                document.getElementById('punkte').innerHTML = "Punkte: " + punkte.toString();
+                // get new prompt from db
+              } else {
+                var lebenString = document.getElementById('leben').innerHTML;
+                var leben = parseInt(lebenString.slice(10, 11));
+                leben--;
+                if(leben == 0){
+                  var punkteString = document.getElementById('punkte').innerHTML;
+                  var punkte = parseInt(punkteString.slice(8, punkteString.length));
+                  document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!', points: punkte}});
+                } else {
+                  document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
+                }
+              };
+              GetRandomAussage(page);
+            };
+          }
+        });
+      });
+    }
+
+    //Muss so sein, weil es eine live datenbank ist
+    function NextAussage(){}
+
+    //Die grösste ID  wird +1 ausgegeben
+    function GetNewId(){
+      firebaseStore.getItems("TAussagen", function(items){
+        items.forEach(function(itm){
+          highestid = itm.id;
+        });
+      });
+    }
+
     // Funktion, um Texte zu verjugendlichen
     function verjugendlichen(originalText){
       var wortWert = 0;
@@ -119,142 +181,129 @@ var app = {
       var page = event.target;
       // Verschiedene Seiten mit dem EventListener ausstatten
       switch(page.id){
+        // Startbildschirm
         case 'page1':
-          // Wechselt auf page2
-          page.querySelector('#push-button-translator').onclick = function() {
-            document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
-          };
-          // Wechselt auf page4
-          page.querySelector('#push-button-game').onclick = function() {
-            document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
-          };
+        // Holt die höchste ID aus der Datenbank, damit man neue immer am Ende hinzufügt
+        highestid = GetNewId();
+        // Wechselt auf page2
+        page.querySelector('#push-button-translator').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
+        };
+        // Wechselt auf page4
+        page.querySelector('#push-button-game').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
+        };
         break;
+        // Screen zum Bild hochladen & Text eingeben
         case 'page2':
-          // Fügt den Titel ein
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('#push-button-confirm').onclick = function() {
-            // "Verjugendlicht" den eingegebenen Text
-            var originalText = document.getElementById('originalText').value;
-            var übersetzterText = verjugendlichen(originalText);
-            // Wenn der User zustimmt, seine Daten zu teilen...
-            if(permissionCheckbox.checked == true){
-              // put übersetzterText[0] on db
-              // put übersetzterText[1] (wortWert * 10) on db
-            }
-            document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
+        // Fügt den Titel ein
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('#push-button-confirm').onclick = function() {
+          // "Verjugendlicht" den eingegebenen Text
+          var originalText = document.getElementById('originalText').value;
+          var übersetzterText = verjugendlichen(originalText);
+          // Wenn der User zustimmt, seine Daten zu teilen...
+          if(permissionCheckbox.checked == true){
+            // ... werden die Texte (original & verjugendlicht) & ihr Wortwert auf die Datenbank geladen
+            AddAussagetoDatabase(originalText,übersetzterText[0],übersetzterText[1]);
           }
-          // Wechselt auf page2_extra (Optionenauswahl für Kamera)
-          page.querySelector('#push-button-pictureToText').onclick = function() {
-            document.querySelector('#myNavigator').pushPage('page2_extra.html', {data: {title: 'Bild zu Text umwandeln'}});
-          }
+          document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
+        }
+        // Wechselt auf page2_extra (Optionenauswahl für Kamera)
+        page.querySelector('#push-button-pictureToText').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page2_extra.html', {data: {title: 'Bild zu Text umwandeln'}});
+        }
         break;
+        // Kamera- oder Galerie-Auswahlsscreen
         // Wäre ein ons-dialog, wenn es nach mir gänge, allerdings hat das nicht zusammen mit dem navigator funktioniert. Darum neue ons-page ausserhalb der regulären Nummerierung.
         case 'page2_extra':
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('#useCamera').onclick = function() {
-            navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true});
-            function onSuccess(imageData) {
-              textocr.recText(0, imageData, onSuccess, onFail);
-              function onSuccess(recognizedText) {
-                var originalText = "";
-                for (var i = 0; i < recognizedText.words.wordtext.length; i++){
-                  originalText += recognizedText.words.wordtext[i] + " ";
-                }
-                document.getElementById('originalText').value = originalText;
-                popPage();
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('#useCamera').onclick = function() {
+          navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true});
+          function onSuccess(imageData) {
+            textocr.recText(0, imageData, onSuccess, onFail);
+            function onSuccess(recognizedText) {
+              var originalText = "";
+              for (var i = 0; i < recognizedText.words.wordtext.length; i++){
+                originalText += recognizedText.words.wordtext[i] + " ";
               }
-              function onFail(message) {
-                alert('Fehler: ' + message);
-              }
+              document.getElementById('originalText').value = originalText;
+              popPage();
             }
             function onFail(message) {
               alert('Fehler: ' + message);
             }
           }
-          page.querySelector('#useGallery').onclick = function() {
-            navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true, sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM});
-            function onSuccess(imageData) {
-              textocr.recText(0, imageData, onSuccess, onFail);
-              function onSuccess(recognizedText) {
-                var originalText = "";
-                for (var i = 0; i < recognizedText.words.wordtext.length; i++){
-                  originalText += recognizedText.words.wordtext[i] + " ";
-                }
-                document.getElementById('originalText').value = originalText;
-                popPage();
+          function onFail(message) {
+            alert('Fehler: ' + message);
+          }
+        }
+        page.querySelector('#useGallery').onclick = function() {
+          navigator.camera.getPicture(onSuccess, onFail, { quality: 100, correctOrientation: true, sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM});
+          function onSuccess(imageData) {
+            textocr.recText(0, imageData, onSuccess, onFail);
+            function onSuccess(recognizedText) {
+              var originalText = "";
+              for (var i = 0; i < recognizedText.words.wordtext.length; i++){
+                originalText += recognizedText.words.wordtext[i] + " ";
               }
-              function onFail(message) {
-                alert('Fehler: ' + message);
-              }
+              document.getElementById('originalText').value = originalText;
+              popPage();
             }
             function onFail(message) {
               alert('Fehler: ' + message);
             }
           }
+          function onFail(message) {
+            alert('Fehler: ' + message);
+          }
+        }
         break;
+        // Resultatsscreen
         case 'page3':
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('.resultOutput').innerHTML = page.data.übersetzterText;
-          page.querySelector('.resultInput').innerHTML = page.data.originalText;
-          break;
-          case 'page4':
-          if(page.data.title == 'Neues Spiel'){
-            document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
-          }
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('#push-button-confirm').onclick = function() {
-            document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
-          };
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('.resultOutput').innerHTML = page.data.übersetzterText;
+        page.querySelector('.resultInput').innerHTML = page.data.originalText;
         break;
+        // Ratespiel Anleitungsscreen
+        case 'page4':
+        if(page.data.title == 'Neues Spiel'){
+          document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+        }
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('#push-button-confirm').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page5.html', {data: {title: 'Spiel'}});
+        };
+        break;
+        // Screen für das Ratespiel selbst
         case 'page5':
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('ons-back-button').onClick = function(event) {
-            document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
-          };
-          page.querySelector('#push-button-confirm').onclick = function() {
-            var prompt = "Bruder, unser Vater ist sehr toll und nett."; // get from db
-            var promptValue = 40; // get from db
-            if(document.getElementById('translatedText').value.trim() == prompt){ // add db later
-              var punkteString = document.getElementById('punkte').innerHTML;
-              var punkte = parseInt(punkteString.slice(8, punkteString.length));
-              punkte += promptValue;
-              document.getElementById('punkte').innerHTML = "Punkte: " + punkte.toString();
-              // get new prompt from db
-            } else {
-              var lebenString = document.getElementById('leben').innerHTML;
-              var leben = parseInt(lebenString.slice(10, 11));
-              leben--;
-              if(leben == 0){
-                var punkteString = document.getElementById('punkte').innerHTML;
-                var punkte = parseInt(punkteString.slice(8, punkteString.length));
-                document.querySelector('#myNavigator').pushPage('page6.html', {data: {title: 'Verloren!', points: punkte}});
-              } else {
-                document.getElementById('leben').innerHTML = "Versuche: " + leben.toString();
-              }
-            };
-          };
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('ons-back-button').onClick = function(event) {
+          document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
+        };
+        GetRandomAussage(page);
         break;
         case 'page6':
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-          page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
-          hiScoreStorage = localStorage;
-          var highscore = hiScoreStorage.getItem('myHighScore');
-          if(highscore == null){
-            highscore = 0;
-          }
-          if(page.data.points > highscore){
-            highscore = page.data.points;
-            hiScoreStorage.setItem('myHighScore', highscore);
-          }
-          page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
-          page.querySelector('#push-button-again').onclick = function() {
-            // Nicht page5, da dann der Back-Button fehlt, deshalb zuerst auf page4, welche dann automatisch weiterleitet
-            // popPage error ist beabsichtigt, weil so page4 nicht richtig lädt, d.h. es lädt direkt page5
-            document.querySelector('ons-navigator').resetToPage('page4.html', {pop: true, data: {title: 'Neues Spiel'}});
-          };
-          page.querySelector('#push-button-home').onclick = function() {
-            document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
-          };
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        page.querySelector('.ownScore').innerHTML = "Erreichte Punkte: " + page.data.points;
+        hiScoreStorage = localStorage;
+        var highscore = hiScoreStorage.getItem('myHighScore');
+        if(highscore == null){
+          highscore = 0;
+        }
+        if(page.data.points > highscore){
+          highscore = page.data.points;
+          hiScoreStorage.setItem('myHighScore', highscore);
+        }
+        page.querySelector('.hiScore').innerHTML = "Highscore: " + highscore;
+        page.querySelector('#push-button-again').onclick = function() {
+          // Nicht page5, da dann der Back-Button fehlt, deshalb zuerst auf page4, welche dann automatisch weiterleitet
+          // popPage error ist beabsichtigt, weil so page4 nicht richtig lädt, d.h. es lädt direkt page5
+          document.querySelector('ons-navigator').resetToPage('page4.html', {pop: true, data: {title: 'Neues Spiel'}});
+        };
+        page.querySelector('#push-button-home').onclick = function() {
+          document.querySelector('ons-navigator').resetToPage('page1.html', {pop: true});
+        };
         break;
       };
     });

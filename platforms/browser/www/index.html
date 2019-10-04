@@ -143,7 +143,7 @@ connect-src * ;">
             <p id="leben">Versuche: 3</p>
             <br>
             <h3>Jugendtext</h3>
-            <p>Bro, unser Alter ist voll fresh und nice.</p>
+            <p id ="jugendtext"></p>
             <p><textarea class="textarea" id="translatedText" rows="6" placeholder="Übersetzung"></textarea></p>
             <ons-button id="push-button-confirm">Bestätigen</ons-button>
           </div>
@@ -168,6 +168,10 @@ connect-src * ;">
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script type="text/javascript" src="js/firebaseStoreController.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
   </body>
   </html>
