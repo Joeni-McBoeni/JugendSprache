@@ -17,12 +17,15 @@
 * under the License.
 */
 
+// App definieren
 var app = {
 
+  // Beim Startup:
   initialize: function() {
+    // EventListener hinzufügen
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
 
-    // Begriffe
+    // Begriffe, die später umgewandelt werden, in einen zweidimensionalen Array einfügen
     var begriffe = [
       ["Bruder", "Bro"],
       ["Brüder", "Bros"],
@@ -79,7 +82,7 @@ var app = {
       ["ein Mädchen", "ein Girl"],
       ["Mädchen", "Girls"],
       ["wütend", "aggro"],
-      ["bin", "bims"],
+      ["Ich bin", "I bims"],
       ["Gentleman", "Ehrenmann"],
       ["Gentlewoman", "Ehrenfrau"],
       ["die Probleme", "den Struggle"],
@@ -92,47 +95,60 @@ var app = {
     // Funktion, um Texte zu verjugendlichen
     function verjugendlichen(originalText){
       var wortWert = 0;
+      // geht alle Begriffe durch
       for(i = 0; i < begriffe.length; i++){
+        // Durchsucht den Original-Text nach dem Begriff
         var pos = originalText.search(new RegExp(begriffe[i][0], "i"));
         while(pos != -1){
+          // erhöht Ratespiel-Punktzahl
           wortWert++;
+          // Nimmt den alten Begriff aus dem String und fügt den neuen ein
           var firstPart = originalText.slice(0, pos);
           var lastPart = originalText.slice(pos + begriffe[i][0].length, originalText.length);
           originalText = firstPart + begriffe[i][1] + lastPart;
+          // Durchsucht erneut
           pos = originalText.search(new RegExp(begriffe[i][0], "i"));
         }
       }
-      console.log(wortWert * 10);
+      // Gibt den neuen Text und die Ratespiel-Punktzahl zurück
       return [originalText, wortWert * 10];
     }
 
     // OnsenUI Page listener
     document.addEventListener('init', function(event) {
       var page = event.target;
+      // Verschiedene Seiten mit dem EventListener ausstatten
       switch(page.id){
         case 'page1':
+          // Wechselt auf page2
           page.querySelector('#push-button-translator').onclick = function() {
             document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Übersetzer'}});
           };
+          // Wechselt auf page4
           page.querySelector('#push-button-game').onclick = function() {
             document.querySelector('#myNavigator').pushPage('page4.html', {data: {title: 'Anleitung'}});
           };
         break;
         case 'page2':
+          // Fügt den Titel ein
           page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
           page.querySelector('#push-button-confirm').onclick = function() {
+            // "Verjugendlicht" den eingegebenen Text
             var originalText = document.getElementById('originalText').value;
             var übersetzterText = verjugendlichen(originalText);
+            // Wenn der User zustimmt, seine Daten zu teilen...
             if(permissionCheckbox.checked == true){
               // put übersetzterText[0] on db
               // put übersetzterText[1] (wortWert * 10) on db
             }
             document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Resultat', originalText: originalText, übersetzterText: übersetzterText[0]}});
           }
+          // Wechselt auf page2_extra (Optionenauswahl für Kamera)
           page.querySelector('#push-button-pictureToText').onclick = function() {
             document.querySelector('#myNavigator').pushPage('page2_extra.html', {data: {title: 'Bild zu Text umwandeln'}});
           }
         break;
+        // Wäre ein ons-dialog, wenn es nach mir gänge, allerdings hat das nicht zusammen mit dem navigator funktioniert. Darum neue ons-page ausserhalb der regulären Nummerierung.
         case 'page2_extra':
           page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
           page.querySelector('#useCamera').onclick = function() {
@@ -145,6 +161,7 @@ var app = {
                   originalText += recognizedText.words.wordtext[i] + " ";
                 }
                 document.getElementById('originalText').value = originalText;
+                popPage();
               }
               function onFail(message) {
                 alert('Fehler: ' + message);
@@ -164,6 +181,7 @@ var app = {
                   originalText += recognizedText.words.wordtext[i] + " ";
                 }
                 document.getElementById('originalText').value = originalText;
+                popPage();
               }
               function onFail(message) {
                 alert('Fehler: ' + message);
@@ -242,12 +260,8 @@ var app = {
     });
   },
 
-  // It's a feature, don't worry about it
-  onDeviceReady: function() {
-//    this.receivedEvent('deviceready');
-//  },
-//  receivedEvent: function(id) {
-  }
+  // Diese Funktion wird gecallt & führt dann noch nebenbei etwas aus. Deshalb muss sie existieren, obwohl sie selbst nichts tut.
+  onDeviceReady: function() {}
 }
 
 app.initialize();

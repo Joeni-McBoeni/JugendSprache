@@ -161,6 +161,7 @@ var app = {
                   originalText += recognizedText.words.wordtext[i] + " ";
                 }
                 document.getElementById('originalText').value = originalText;
+                popPage();
               }
               function onFail(message) {
                 alert('Fehler: ' + message);
@@ -180,6 +181,7 @@ var app = {
                   originalText += recognizedText.words.wordtext[i] + " ";
                 }
                 document.getElementById('originalText').value = originalText;
+                popPage();
               }
               function onFail(message) {
                 alert('Fehler: ' + message);
